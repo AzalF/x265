@@ -25,9 +25,9 @@ jobs:
         - haswell
         - skylake
         - alderlake
-        - znver2
         - znver3
         - znver4
+        - znver5
         toolchain:
         - clang
         #- ucrt
@@ -75,7 +75,7 @@ jobs:
       with:
         path: mimalloc
         repository: microsoft/mimalloc
-        ref: v2.1.2
+        ref: v2.2.2
       if: steps.cache-mi.outputs.cache-hit != 'true'
     - name: Setup MSYS2
       uses: msys2/setup-msys2@v2
