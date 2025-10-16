@@ -47,6 +47,12 @@ jobs:
       with:
         path: x265
         fetch-depth: 0
+    - name: Extract branch name
+      shell: bash
+      id: extract_branch
+      run: |
+        branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+        echo "BN=$branch" >> $GITHUB_OUTPUT
     - name: Cache FFmpeg
       id: cache-ff
       uses: actions/cache@v4
@@ -151,7 +157,7 @@ jobs:
     - name: Upload
       uses: actions/upload-artifact@v4
       with:
-        name: x265-win64-${{matrix.target_cpu}}-${{matrix.toolchain}}-full
+        name: x265-win64-${{matrix.target_cpu}}-${{matrix.toolchain}}-${{ steps.extract_branch.outputs.BN }}
         path: dist/*
 
     - name: Compress artifact for release
